@@ -19,15 +19,22 @@ export const getStaticProps = async () => {
     return {
         props:{
             dog:'reks',
-        }
+        },
+        revalidate:10,
     }
 }
 
-export const getStaticPaths = async (id) => {
-    const paths = id;
-    console.log(paths)
+export const getStaticPaths = async () => {
+    const res = await fetch('https://api.themoviedb.org/3/movie/11/details?api_key=c0f0775fea18b0469df241482ffee21b&language=en-US')
+    const details =  await res.json();
+    console.log('details',details)
     return{
-        id
+        paths:[
+            {
+                params:'leo'
+            }
+        ],
+        fallback:true
     }
 }
 
@@ -46,5 +53,5 @@ export default Page;
 
 
 
-// const details = await fetch('https://api.themoviedb.org/3/movie/140607/details?api_key=c0f0775fea18b0469df241482ffee21b&language=en-US').then(res => res.json())
+
 // console.log(details)
