@@ -16,9 +16,9 @@ const Page:NextPage = () => {
           trailerButton="Play"
         />
         <Recent/>
-        <Actors
+        {/* <Actors
           title="Brithday of actors"
-        />
+        /> */}
         <Netflix/>
       </>
     </Layout>

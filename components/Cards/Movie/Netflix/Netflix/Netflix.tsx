@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { netflix } from "../../../../../data/netflix";
 import { fetchNetflix } from "../../../../../functions/fetch";
+import { netflix } from "../../../../SearchResult/data/netflix";
 import Cards from "../Cards/Cards";
 import { Wrapper } from "./styles";
 

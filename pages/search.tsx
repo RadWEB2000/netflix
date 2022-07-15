@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar/SearchBar/SearchBar";
 import MovieResult from "../components/SearchResult/MovieResult";
 import PersonResult from "../components/SearchResult/PersonResult";
 import TvResult from "../components/SearchResult/TvResult";
-import { fetchSearchTmdb, fetchTmdb, tmdb_api } from "../data/tmdb";
+import { fetchSearchTmdb, fetchTmdb, tmdb_api } from "../components/SearchResult/data/tmdb";
 const Page:NextPage = () => {
     const [filter,setFilter] = useState({
         movie:true,

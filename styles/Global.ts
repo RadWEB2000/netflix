@@ -33,6 +33,9 @@ export const Global = createGlobalStyle`
     html{
         font-size:62.5%;
     }
+    iframe{
+        all:unset;
+    }
     input{
         all:unset;
     }

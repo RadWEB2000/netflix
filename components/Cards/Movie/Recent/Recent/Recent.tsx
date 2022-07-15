@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { recent } from "../../../../../data/recent";
 import { fetchMoviesAppApi } from "../../../../../functions/fetch";
+import { recent } from "../../../../SearchResult/data/recent";
 import Cards from "../Cards/Cards";
 
 const Recent = () => {

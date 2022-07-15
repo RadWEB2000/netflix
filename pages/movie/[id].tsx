@@ -1,57 +1,83 @@
-import { GetStaticProps, NextPage } from "next";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Layout from "../../components/Layout/Layout/Layout";
-const Page = ({dog}) => {
-    const moviePath = `https://image.tmdb.org/t/p/original`
-    const {id} = useRouter().query;
-    console.log('paths',dog)
+import Cast from "../../components/Page/Movie/Cast/Cast/Cast";
+import Hero from "../../components/Page/Movie/Hero/Hero/Hero";
+import Reviews from "../../components/Page/Movie/Reviews/Reviews/Reviews";
+import Trailer from "../../components/Page/Movie/Trailer/Trailer/Trailer";
+import { data } from "../../components/SearchResult/data/data";
+import { IntMoviePage } from "../../types/interface";
+const Page = ({cast,details,reviews,trailers}:IntMoviePage) => {
+    const heroPoster = () => {
+        if(details.picture){
+            return `${data.tmdb.image}${details.picture}`;
+        }else{
+            return `${data.tmdb.image}${details.poster}`;
+        }
+    }
     return(
         <Layout>
             <>
-             {id}
+                <Hero
+                    budget={details.budget}
+                    categories={[...details.categories]}
+                    companies={[...details.production]}
+                    content={details.overview}
+                    homepage={details.homepage}
+                    image={heroPoster()}
+                    lang={details.lang}
+                    popularity={details.popularity}
+                    profit={details.profit}
+                    release={details.release}
+                    title={details.title}
+                    vote={details.vote}
+                />
+                <Trailer
+                    trailers={[...trailers]}
+                />
+                <Cast
+                    cast={[...cast]}
+                />
+                <Reviews
+                    reviews={[...reviews]}
+                />
             </>
         </Layout>
     )
 }
-export const getStaticProps = async () => {
-    console.log('server')
+export default Page;
+export const getStaticProps:GetStaticProps = async ({params}) => {
+    const details = await fetch(`https://api.themoviedb.org/3/movie/${params.id}?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())  
+    const trailers = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=${data.tmdb.key}`).then(res => res.json())
+
+    const cast = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/credits?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
+    const reviews = await fetch(`https://api.themoviedb.org/3/movie//${params.id}/reviews?api_key=${data.tmdb.key}`).then(res => res.json())
     return {
         props:{
-            dog:'reks',
+            details:{
+                budget:details.budget,
+                categories:details.genres,
+                homepage:details.homepage,
+                lang:details.original_language,
+                overview:details.overview,
+                picture:details.backdrop_path,
+                poster:details.poster_path,
+                popularity:details.popularity,
+                production:details.production_companies,
+                profit:details.revenue,
+                release:details.release_date,
+                title:details.title,
+                vote:details.vote_average,
+            },
+            trailers:trailers.results,
+            cast:cast.cast,
+            reviews:reviews.results
         },
         revalidate:10,
     }
 }
-
-export const getStaticPaths = async () => {
-    const res = await fetch('https://api.themoviedb.org/3/movie/11/details?api_key=c0f0775fea18b0469df241482ffee21b&language=en-US')
-    const details =  await res.json();
-    console.log('details',details)
+export const getStaticPaths:GetStaticPaths = async () => {
     return{
-        paths:[
-            {
-                params:'leo'
-            }
-        ],
-        fallback:true
+        paths:[],
+        fallback:'blocking'
     }
 }
-
-export default Page;
-
-
-
-
-// InferGetStaticPropsType
-
-
-
-
-
-
-
-
-
-
-// console.log(details)
