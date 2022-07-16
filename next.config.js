@@ -5,7 +5,9 @@ const nextConfig = {
     domains:[
       'image.tmdb.org',
       'pbs.twimg.com',
-      'images.unsplash.com'
+      'images.unsplash.com',
+      'www.gravatar.com',
+      'cdn.pixabay.com'
     ]
   }
 }

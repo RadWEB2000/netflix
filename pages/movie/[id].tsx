@@ -7,12 +7,20 @@ import Trailer from "../../components/Page/Movie/Trailer/Trailer/Trailer";
 import { data } from "../../components/SearchResult/data/data";
 import { IntMoviePage } from "../../types/interface";
 const Page = ({cast,details,reviews,trailers}:IntMoviePage) => {
+    console.log('rev',reviews)
     const heroPoster = () => {
         if(details.picture){
             return `${data.tmdb.image}${details.picture}`;
         }else{
             return `${data.tmdb.image}${details.poster}`;
         }
+    }
+    const getReviews = () => {
+        reviews.map(({author_details}) => 
+            <>
+                username:{author_details.username}
+            </>
+        )
     }
     return(
         <Layout>

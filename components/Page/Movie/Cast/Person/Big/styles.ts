@@ -7,6 +7,7 @@ export const Wrapper = styled.li`
         border-radius:2rem;
         overflow:hidden;
         position:relative;
+        user-select:none;
         width:100%;
     }
     & > figcaption{

@@ -3,7 +3,7 @@ export const Wrapper = styled.section`
     margin:1.5rem auto;
     width:85%;
     & > ul {
-        align-items:center;
+        align-items:start;
         background-color:#222;
         box-shadow:inset 0 0 2rem hsla(0,100%,0%,.85);
         display:flex;
@@ -11,7 +11,7 @@ export const Wrapper = styled.section`
         padding:3rem .25rem;
         justify-content:center;
         & > * {
-            margin:auto;
+            margin:0 auto;
         }
     }
     & > h2{
