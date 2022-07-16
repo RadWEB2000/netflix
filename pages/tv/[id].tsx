@@ -1,14 +1,14 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Layout from "../../components/Layout/Layout/Layout";
 import Cast from "../../components/Page/Movie/Cast/Cast/Cast";
-import Hero from "../../components/Page/Movie/Hero/Hero/Hero";
-import Reviews from "../../components/Page/Movie/Reviews/Reviews/Reviews";
-import Trailer from "../../components/Page/Movie/Trailer/Trailer/Trailer";
+import Hero from "../../components/Page/Tv/Hero/Hero/Hero";
+import Posters from "../../components/Page/Tv/Posters/Posters/Posters";
 import { data } from "../../components/SearchResult/data/data";
-import { IntMoviePage } from "../../types/interface";
-const Page = ({cast,details,reviews,trailers}:IntMoviePage) => {
-    console.log('rev',reviews)
-    const heroPoster = () => {
+import { IntTvPage } from "../../types/interface";
+const Page = ({cast,details,posters}:IntTvPage) => {
+    console.log('details',details)
+    console.log('cast',cast)
+    const heroPoster = ():string => {
         if(details.picture){
             return `${data.tmdb.image}${details.picture}`;
         }else{
@@ -19,27 +19,24 @@ const Page = ({cast,details,reviews,trailers}:IntMoviePage) => {
         <Layout>
             <>
                 <Hero
-                    budget={details.budget}
                     categories={[...details.categories]}
-                    companies={[...details.production]}
+                    companies={[...details.companies]}
                     content={details.overview}
+                    end={details.release.end}
                     homepage={details.homepage}
                     image={heroPoster()}
                     lang={details.lang}
                     popularity={details.popularity}
-                    profit={details.profit}
-                    release={details.release}
+                    seasons={details.release.seasons}
+                    start={details.release.start}
                     title={details.title}
                     vote={details.vote}
-                />
-                <Trailer
-                    trailers={[...trailers]}
                 />
                 <Cast
                     cast={[...cast]}
                 />
-                <Reviews
-                    reviews={[...reviews]}
+                <Posters
+                    posters={[...posters]}
                 />
             </>
         </Layout>
@@ -47,30 +44,30 @@ const Page = ({cast,details,reviews,trailers}:IntMoviePage) => {
 }
 export default Page;
 export const getStaticProps:GetStaticProps = async ({params}) => {
-    const details = await fetch(`https://api.themoviedb.org/3/movie/${params.id}?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())  
-    const trailers = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=${data.tmdb.key}`).then(res => res.json())
-    const cast = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/credits?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
-    const reviews = await fetch(`https://api.themoviedb.org/3/movie//${params.id}/reviews?api_key=${data.tmdb.key}`).then(res => res.json())
+    const details = await fetch(`https://api.themoviedb.org/3/tv/${params.id}?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
+    const cast = await fetch(`https://api.themoviedb.org/3/tv/${params.id}/credits?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
+    const posters = await fetch(`https://api.themoviedb.org/3/tv/${params.id}/images?api_key=${data.tmdb.key}`).then(res => res.json())
     return {
         props:{
             details:{
-                budget:details.budget,
                 categories:details.genres,
+                companies:details.networks,
                 homepage:details.homepage,
                 lang:details.original_language,
                 overview:details.overview,
                 picture:details.backdrop_path,
-                poster:details.poster_path,
                 popularity:details.popularity,
-                production:details.production_companies,
-                profit:details.revenue,
-                release:details.release_date,
-                title:details.title,
+                poster:details.poster_path,
+                release:{
+                    seasons:details.seasons.length,
+                    start:details.first_air_date,
+                    end:details.last_air_date
+                },
+                title:details.name,
                 vote:details.vote_average,
             },
-            trailers:trailers.results,
             cast:cast.cast,
-            reviews:reviews.results
+            posters:posters.backdrops
         },
         revalidate:10,
     }

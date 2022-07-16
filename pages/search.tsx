@@ -7,6 +7,7 @@ import PersonResult from "../components/SearchResult/PersonResult";
 import TvResult from "../components/SearchResult/TvResult";
 import { fetchSearchTmdb, fetchTmdb, tmdb_api } from "../components/SearchResult/data/tmdb";
 const Page:NextPage = () => {
+    const [search,setSearch] = useState('');
     const [filter,setFilter] = useState({
         movie:true,
         tv:false,
@@ -17,21 +18,21 @@ const Page:NextPage = () => {
             id:'movie',
             name:'movie',
             title:'Movie',
-            handle:() => setFilter({movie:true,tv:false,person:false}),
+            handle:() => {setFilter({movie:true,tv:false,person:false}),setSearch('')},
             value:filter.movie
         },
         tv:{
             id:'tv',
             name:'tv',
             title:'Tv',
-            handle:() => setFilter({movie:false,tv:true,person:false}),
+            handle:() => {setFilter({movie:false,tv:true,person:false}),setSearch('')},
             value:filter.tv
         },
         person:{
             id:'person',
             name:'person',
             title:'Person',
-            handle:() => setFilter({movie:false,tv:false,person:true}),
+            handle:() => {setFilter({movie:false,tv:false,person:true}),setSearch('')},
             value:filter.person
         }
     }
@@ -47,13 +48,21 @@ const Page:NextPage = () => {
     }
     const {movie,tv,person} = filterRadios;
     const [result,setResult] = useState<any>([]);
-    const [search,setSearch] = useState('');
     useEffect(() => {
         getCategory()
     })
     useEffect(() => {
-        setTimeout(() => fetchTmdb(category,setResult,search),1500)
-    },[category,search])
+        setTimeout(() => fetchTmdb(category,setResult,search),1500);
+        console.log(
+            'result',
+            result.length
+        )
+        console.log(
+            'search',
+            search.length
+        )
+        console.log('category',category)
+    },[category,result,search])
     return(
         <Layout>
             <>
@@ -64,11 +73,23 @@ const Page:NextPage = () => {
                     name='search'
                 /> 
                 {
-                    filter.movie &&
-                    <MovieResult
-                        result={result}
-                    />
+                    search.length > 0 ?
+                    (
+                        result.length > 1 ?
+                        (
+                            filter.movie &&
+                            <MovieResult
+                                result={result}
+                            />
+                        ) :
+                        <>
+                        </>
+                    ) :
+                    <>
+                    </>
                 }
+
+
                 {
                     filter.tv && 
                     <TvResult
@@ -76,10 +97,22 @@ const Page:NextPage = () => {
                     />
                 }
                 {
-                    filter.person && 
-                    <PersonResult
-                        result={result}
-                    />
+                    <>
+                        {
+                            search.length > 0 ?
+                            (
+                                result.length > 0 ?
+                                (
+                                    filter.person && 
+                                    <PersonResult
+                                        result={result}
+                                    />
+                                ) :
+                                <p>result nie ok</p>
+                            ):
+                            <p>search pusty</p>
+                        }
+                    </>
                 }
             </>
         </Layout>

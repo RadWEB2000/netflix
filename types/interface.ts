@@ -42,3 +42,38 @@ export interface IntMoviePage {
         site:string,
     }[]
 }
+export interface IntTvPage {
+    cast:{
+        character:string,
+        name:string,
+        profile_path:string
+    }[],
+    details:{
+        categories:{
+            id:number,
+            name:string,
+        }[],
+        companies:{
+            id:number,
+            logo_path:string,
+            name:string,
+            origin_country:string,
+        }[],
+        homepage:string,
+        lang:string,
+        overview:string,
+        picture:string,
+        popularity:number,
+        poster:string,
+        release:{
+            seasons:number,
+            start:string,
+            end:string,
+        },
+        title:string,
+        vote:number,
+    },
+    posters:{
+        file_path:string,
+    }[]
+}

@@ -7,7 +7,7 @@ const MovieResult = ({result}:IntMovieResult) => {
     return(
         <>
             <section>
-                {result.slice(0,1).map(({id,original_language,overview,poster_path,release_date,title,vote_average}) =>
+                {result?.slice(0,1).map(({id,original_language,overview,poster_path,release_date,title,vote_average}) =>
                     <Search
                         description={overview}
                         image={`https://image.tmdb.org/t/p/original/${poster_path}`}

@@ -14,7 +14,7 @@ const TvResult = ({result}:IntTvResult) => {
                         release={first_air_date}
                         title={name}
                         lang={original_language}
-                        path=''
+                        path={`/tv/${id}`}
                         key={id}
                     />
                 )}

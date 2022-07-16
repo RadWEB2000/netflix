@@ -8,7 +8,7 @@ const Content = ({job,path,title,works}:IntContent) => {
             <h1>{title}</h1>
             <p>{job}</p>
             <ul>
-                {works.slice(0,5).map(({first_air_date,media_type,name,title,release_date}) =>
+                {works && works.slice(0,5).map(({first_air_date,media_type,name,title,release_date}) =>
                     <>
                         {
                             media_type == 'movie' ?
@@ -30,11 +30,6 @@ const Content = ({job,path,title,works}:IntContent) => {
                     <div className="fav">
                         <AiOutlineLike/>
                     </div>
-                    <Link href={`/${path}`}>
-                        <a>
-                            View more
-                        </a>
-                    </Link>
                 </div>
             </div>
         </Wrapper>

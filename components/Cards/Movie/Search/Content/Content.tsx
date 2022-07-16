@@ -22,7 +22,7 @@ const Content = ({description,lang,path,rating,release,title}:IntContent) => {
                     <p>{lang?.toUpperCase()}</p>
                 </li>
             </ul>
-            <p dangerouslySetInnerHTML={{__html:description.substr(0,250) + '...'}} />
+            <p dangerouslySetInnerHTML={{__html:description?.substr(0,250) + '...'}} />
             <div>
                 <div>
                     <div className="fav">

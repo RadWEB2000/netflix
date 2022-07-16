@@ -1,10 +1,11 @@
 import { ReactElement, useEffect, useState } from "react"
+import { Provider } from "react-redux"
 import { ThemeProvider } from "styled-components"
+import store from "../../../redux/store"
 import { Global } from "../../../styles/Global"
 import { theme } from "../../../styles/theme"
 import Navigation from "../../Navigation/Navigation/Navigation"
 const Layout = ({children}:{children:ReactElement}) => {
-    const [search,setSearch] = useState('')
     const menu = [
         {
             path:'/',
@@ -15,7 +16,7 @@ const Layout = ({children}:{children:ReactElement}) => {
             title:'Search'
         },
         {
-            path:'',
+            path:'/favourites',
             title:'Favourites'
         },
         {
@@ -23,23 +24,23 @@ const Layout = ({children}:{children:ReactElement}) => {
             title:'About'
         },
     ]
-    useEffect(() => {
-        console.log(search);
-    },[search])
+    console.log(store)
     return(
-        <ThemeProvider theme={theme}>
-            <Global/>
-            <Navigation
-                image='/assets/images/netflix.png'
-                menu={[...menu]}
-                path='/'
-                placeholder="Search"
-                title="NetflixApp"
-            />
-            <>
-                {children}
-            </>
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <Global/>
+                <Navigation
+                    image='/assets/images/netflix.png'
+                    menu={[...menu]}
+                    path='/'
+                    placeholder="Search"
+                    title="NetflixApp"
+                />
+                <>
+                    {children}
+                </>
+            </ThemeProvider>
+        </Provider>
     )
 }
 export default Layout;
