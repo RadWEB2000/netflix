@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { actors } from "../../../data/actors";
 import { fetchActors } from "../../../functions/fetch";
+import { actors } from "../../SearchResult/data/actors";
 import Card from "../Card/Card";
 import { IntActors } from "./interface"
 import { Wrapper } from "./styles";
