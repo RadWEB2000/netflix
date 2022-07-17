@@ -9,7 +9,7 @@ declare module 'styled-components' {
         gray:string,
         brown:string,
         twitter:{
-            reguler:string,
+            regular:string,
             hover:string,
         }
     },

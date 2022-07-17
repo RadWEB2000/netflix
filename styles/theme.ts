@@ -8,7 +8,7 @@ export const theme:DefaultTheme = {
         gray:'#564d4d',
         brown:'#831010',
         twitter:{
-            reguler:'#e1e8ed',
+            regular:'#e1e8ed',
             hover:'#1da1f2'
         }
     },
