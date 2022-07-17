@@ -44,9 +44,9 @@ const Page = ({cast,details,posters}:IntTvPage) => {
 }
 export default Page;
 export const getStaticProps:GetStaticProps = async ({params}) => {
-    const details = await fetch(`https://api.themoviedb.org/3/tv/${params.id}?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
-    const cast = await fetch(`https://api.themoviedb.org/3/tv/${params.id}/credits?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
-    const posters = await fetch(`https://api.themoviedb.org/3/tv/${params.id}/images?api_key=${data.tmdb.key}`).then(res => res.json())
+    const details = await fetch(`https://api.themoviedb.org/3/tv/${params?.id}?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
+    const cast = await fetch(`https://api.themoviedb.org/3/tv/${params?.id}/credits?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
+    const posters = await fetch(`https://api.themoviedb.org/3/tv/${params?.id}/images?api_key=${data.tmdb.key}`).then(res => res.json())
     return {
         props:{
             details:{

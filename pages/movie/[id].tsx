@@ -47,10 +47,10 @@ const Page = ({cast,details,reviews,trailers}:IntMoviePage) => {
 }
 export default Page;
 export const getStaticProps:GetStaticProps = async ({params}) => {
-    const details = await fetch(`https://api.themoviedb.org/3/movie/${params.id}?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())  
-    const trailers = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=${data.tmdb.key}`).then(res => res.json())
-    const cast = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/credits?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
-    const reviews = await fetch(`https://api.themoviedb.org/3/movie//${params.id}/reviews?api_key=${data.tmdb.key}`).then(res => res.json())
+    const details = await fetch(`https://api.themoviedb.org/3/movie/${params?.id}?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())  
+    const trailers = await fetch(`https://api.themoviedb.org/3/movie/${params?.id}/videos?api_key=${data.tmdb.key}`).then(res => res.json())
+    const cast = await fetch(`https://api.themoviedb.org/3/movie/${params?.id}/credits?api_key=${data.tmdb.key}&language=en-US`).then(res => res.json())
+    const reviews = await fetch(`https://api.themoviedb.org/3/movie//${params?.id}/reviews?api_key=${data.tmdb.key}`).then(res => res.json())
     return {
         props:{
             details:{
